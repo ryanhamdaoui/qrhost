@@ -9,7 +9,7 @@ from urllib.parse import quote
 import mimetypes
 import re
 
-PORT = 6969  # Set to port 6969
+PORT = 6969  
 
 def get_ip():
     try:
@@ -40,7 +40,7 @@ def serve_directory(directory):
 
     class Handler(http.server.SimpleHTTPRequestHandler):
         def log_message(self, format, *args):
-            pass  # silence output
+            pass  
 
     with socketserver.TCPServer(("", PORT), Handler) as httpd:
         print(f"Serving directory '{directory}' at http://localhost:{PORT}/ (Press Ctrl+C to stop)")
@@ -62,13 +62,13 @@ def serve_file(filepath):
 
     class Handler(http.server.SimpleHTTPRequestHandler):
         def end_headers(self):
-            # Force download for text files and other files if desired
+            
             if self.path.endswith('.txt'):
                 self.send_header('Content-Disposition', 'attachment; filename=' + os.path.basename(self.path))
             super().end_headers()
 
         def log_message(self, format, *args):
-            pass  # silence output
+            pass  
 
     with socketserver.TCPServer(("", PORT), Handler) as httpd:
         print(f"Serving '{filename}' at http://localhost:{PORT}/ (Press Ctrl+C to stop)")
@@ -80,14 +80,14 @@ def serve_file(filepath):
             httpd.server_close()
 
 def is_valid_url(url):
-    # Simple regex to check if the input is a valid URL
+   
     url_regex = re.compile(
-        r'^(?:http|ftp)s?://' # http:// or https://
-        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]*[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  # domain...
-        r'localhost|'  # localhost...
-        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|'  # ...or ipv4
-        r'\[?[A-F0-9]*:[A-F0-9:]+\]?)'  # ...or ipv6
-        r'(?::\d+)?'  # optional port
+        r'^(?:http|ftp)s?://' 
+        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]*[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'  
+        r'localhost|'  
+        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|'  
+        r'\[?[A-F0-9]*:[A-F0-9:]+\]?)'  
+        r'(?::\d+)?'  
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
     return re.match(url_regex, url) is not None
 
@@ -99,7 +99,7 @@ if __name__ == "__main__":
     path = sys.argv[1]
     
     if is_valid_url(path):
-        # Handle URL input
+        
         print("Serving URL:", path)
         generate_qr(path)
         print(f"Visit the above URL directly.")
@@ -107,9 +107,9 @@ if __name__ == "__main__":
         print(f"Error: Path not found: {path}")
         sys.exit(1)
     elif os.path.isdir(path):
-        serve_directory(path)  # Serve whole directory
+        serve_directory(path)  
     elif os.path.isfile(path):
-        serve_file(path)  # Serve a single file
+        serve_file(path)  
     else:
         print(f"Error: Unsupported path type: {path}")
         sys.exit(1)
