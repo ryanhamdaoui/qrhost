@@ -13,3 +13,8 @@ To install QRHost, simply run:
 
 ```bash
 pip install qrhost
+
+
+```
+## Example
+![image](https://github.com/user-attachments/assets/1290f47b-949b-45ed-9539-70b61637abae)
