@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qrhost"
+dynamic = ["version"]
+description = "Share files, folders, links, text and Wi-Fi from your terminal to any phone with a QR code"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Hamdaoui Ryan", email = "ryanhamdaoui45@gmail.com" }]
+requires-python = ">=3.9"
+dependencies = ["qrcode>=7.3"]
+keywords = ["qr", "qrcode", "file-sharing", "http-server", "lan", "airdrop", "cli"]
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Communications :: File Sharing",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+]
+
+[project.urls]
+Homepage = "https://github.com/ryanhamdaoui/qrhost"
+Issues = "https://github.com/ryanhamdaoui/qrhost/issues"
+
+[project.scripts]
+qrhost = "qrhost.cli:main"
+
+[tool.setuptools]
+packages = ["qrhost"]
+
+[tool.setuptools.dynamic]
+version = { attr = "qrhost.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
